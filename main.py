@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.core.database import Base, engine
 from app.api.auth import router as auth_router
 from app.api.roles import router as roles_router
 from app.api.events import router as events_router
@@ -14,6 +15,14 @@ app = FastAPI(
         "ведётся учет часов, рейтинга и выдача сертификатов."
     ),
 )
+
+
+@app.on_event("startup")
+async def on_startup() -> None:
+    """
+    Создание таблиц и начальных данных (роли, админ).
+    """
+    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/", tags=["Главная"])
