@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>RukaPomoshchi – Главная</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-alt: #020617;
+            --card: #111827;
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.15);
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --border: rgba(148, 163, 184, 0.3);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(17, 24, 39, 0.98));
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        .nav {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+        .logo-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 30% 20%, #bbf7d0 0, #22c55e 35%, #16a34a 55%, #14532d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #022c22;
+            font-size: 0.9rem;
+            font-weight: 800;
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.8),
+                0 12px 22px rgba(22, 163, 74, 0.45);
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+        }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            transition: all 0.18s ease;
+        }
+        .nav-links a:hover {
+            color: var(--text);
+            background: rgba(15, 23, 42, 0.96);
+            border-color: var(--border);
+        }
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn {
+            border-radius: 999px;
+            padding: 0.5rem 1.1rem;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: transparent;
+            color: var(--text);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(209, 213, 219, 0.85);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #22c55e, #16a34a, #4ade80);
+            color: #022c22;
+            border: none;
+            box-shadow:
+                0 12px 25px rgba(22, 163, 74, 0.55),
+                0 0 0 1px rgba(21, 128, 61, 0.6);
+        }
+        .btn-primary:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+        }
+        main {
+            flex: 1;
+        }
+        .hero {
+            max-width: 1120px;
+            margin: 2.5rem auto 2rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.2rem 0.6rem 0.2rem 0.2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(52, 211, 153, 0.45);
+            background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.32), rgba(15, 23, 42, 0.98));
+            font-size: 0.75rem;
+            color: #a7f3d0;
+            margin-bottom: 1.1rem;
+        }
+        .hero-badge-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background:
+                radial-gradient(circle at 30% 20%, #bbf7d0 0, #22c55e 40%, #15803d 70%, #052e16 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.9),
+                0 8px 18px rgba(34, 197, 94, 0.55);
+        }
+        .hero-badge-dot svg {
+            width: 10px;
+            height: 10px;
+            color: #022c22;
+        }
+        h1 {
+            font-size: clamp(2.2rem, 3.1vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 0.9rem;
+        }
+        h1 span {
+            background: linear-gradient(135deg, #22c55e, #a7f3d0);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .hero-subtitle {
+            color: var(--muted);
+            font-size: 0.98rem;
+            max-width: 34rem;
+            line-height: 1.6;
+        }
+        .hero-subtitle b {
+            color: #e5e7eb;
+        }
+        .hero-cta {
+            margin-top: 1.7rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            align-items: center;
+        }
+        .hero-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 1.6rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        .metric {
+            border-left: 1px solid var(--border);
+            padding-left: 0.9rem;
+        }
+        .metric strong {
+            display: block;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+        .hero-visual {
+            position: relative;
+        }
+        .hero-card {
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.25), rgba(15, 23, 42, 0.98));
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow:
+                0 26px 60px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(15, 23, 42, 0.85);
+        }
+        .hero-card-title {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            margin-bottom: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero-card-title span {
+            font-size: 0.75rem;
+            color: #bbf7d0;
+        }
+        .timeline {
+            margin-top: 0.8rem;
+            display: grid;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+        }
+        .timeline-dot {
+            margin-top: 0.35rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .timeline-label {
+            font-weight: 500;
+            color: #e5e7eb;
+            margin-bottom: 0.1rem;
+        }
+        .timeline-text {
+            color: #d1fae5;
+            opacity: 0.9;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+        .tag {
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(74, 222, 128, 0.4);
+            font-size: 0.72rem;
+            color: #bbf7d0;
+            background: rgba(6, 95, 70, 0.55);
+        }
+        .sections {
+            max-width: 1120px;
+            margin: 0 auto 3rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        @media (max-width: 900px) {
+            .sections {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 640px) {
+            .sections {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+        .card {
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+            border-radius: 1.2rem;
+            padding: 1.3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .card h2 {
+            font-size: 1rem;
+        }
+        .card p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        .card a {
+            margin-top: 0.4rem;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: #a7f3d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.72rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            color: var(--muted);
+        }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1rem 1.5rem 1.4rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        footer .inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .muted-link {
+            color: var(--muted);
+            text-decoration: none;
+        }
+        .muted-link:hover {
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <div class="logo-badge">R</div>
+                <div>
+                    RukaPomoshchi
+                    <div style="font-size: 0.7rem; color: var(--muted);">
+                        Платформа волонтерских проектов
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="#about">О платформе</a>
+                <a href="#sections">Разделы системы</a>
+                <a href="#how">Как это работает</a>
+            </nav>
+            <div class="nav-cta">
+                <a class="btn" href="auth-login.html">Войти</a>
+                <a class="btn btn-primary" href="auth-register.html">Стать волонтером</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="about">
+            <div>
+                <div class="hero-badge">
+                    <span class="hero-badge-dot">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M5 13.5 10 18 19 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    Цифровая поддержка НКО и волонтеров
+                </div>
+                <h1>
+                    Система управления волонтерскими проектами
+                    <span>«РукаПомощи»</span>
+                </h1>
+                <p class="hero-subtitle">
+                    НКО публикуют <b>мероприятия и поездки</b>, волонтеры записываются,
+                    система ведёт <b>учёт часов, рейтинга и сертификатов</b>.
+                    Всё в одном месте — от роли администратора до личного кабинета волонтёра.
+                </p>
+                <div class="hero-cta">
+                    <a class="btn btn-primary" href="#signup">Зарегистрироваться как волонтер</a>
+                    <a class="btn" href="#sections">Смотреть разделы платформы</a>
+                </div>
+                <div class="hero-metrics">
+                    <div class="metric">
+                        <strong>Мероприятия</strong>
+                        публикация, регистрация, учёт участия
+                    </div>
+                    <div class="metric">
+                        <strong>Роли и доступы</strong>
+                        администраторы, координаторы, волонтеры
+                    </div>
+                    <div class="metric">
+                        <strong>Сертификаты</strong>
+                        подтверждение часов и опыта
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-title">
+                        Панель проекта НКО
+                        <span>Пример интерфейса</span>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-label">Публикация мероприятия</div>
+                                <div class="timeline-text">НКО создаёт событие: описание, даты, количество волонтеров.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-label">Запись волонтеров</div>
+                                <div class="timeline-text">Волонтеры выбирают мероприятие, подают заявку и получают подтверждение.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-label">Учет часов и рейтинг</div>
+                                <div class="timeline-text">После мероприятия часы автоматически учитываются, формируется рейтинг.</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-label">Сертификаты</div>
+                                <div class="timeline-text">Система формирует сертификаты для волонтеров по итогам участия.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tag-row">
+                        <span class="tag">Мероприятия</span>
+                        <span class="tag">Роли и права</span>
+                        <span class="tag">Учет часов</span>
+                        <span class="tag">Сертификаты</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sections" id="sections">
+            <article class="card">
+                <div class="pill">/events</div>
+                <h2>Мероприятия</h2>
+                <p>
+                    Раздел для управления волонтерскими событиями: создание, расписание,
+                    лимиты по количеству участников и статистика по посещаемости.
+                </p>
+                <a href="events.html">Как работает модуль мероприятий →</a>
+            </article>
+
+            <article class="card">
+                <div class="pill">/roles</div>
+                <h2>Роли и доступы</h2>
+                <p>
+                    Управление ролями: администраторы, координаторы проектов и волонтеры.
+                    Гибкая система прав доступа к функциям платформы.
+                </p>
+                <a href="#how">Подробнее о ролях и правах →</a>
+            </article>
+
+            <article class="card">
+                <div class="pill">/auth</div>
+                <h2>Аутентификация</h2>
+                <p>
+                    Безопасная регистрация и вход в систему для НКО и волонтеров.
+                    Поддержка ролей, восстановления доступа и личных кабинетов.
+                </p>
+                <a href="auth-login.html">Перейти к авторизации →</a>
+            </article>
+
+            <article class="card">
+                <div class="pill">/shop</div>
+                <h2>Магазин поощрений</h2>
+                <p>
+                    Витрина поощрений и сувениров, которые волонтеры могут получать
+                    за активность, накопленные часы и высокий рейтинг.
+                </p>
+                <a href="#about">Посмотреть возможности поощрений →</a>
+            </article>
+
+            <article class="card">
+                <div class="pill">/trips</div>
+                <h2>Поездки и выезды</h2>
+                <p>
+                    Организация выездных волонтерских поездок: формирование групп,
+                    маршрутов, координация транспорта и обратная связь.
+                </p>
+                <a href="#how">Узнать о сценариях поездок →</a>
+            </article>
+
+            <article class="card">
+                <div class="pill">/volunteers</div>
+                <h2>Волонтеры и профиль</h2>
+                <p>
+                    Личная статистика, список мероприятий, сертификаты и достижения.
+                    Вся история участия волонтера в одном месте.
+                </p>
+                <a href="volunteers.html">Создать профиль волонтера →</a>
+            </article>
+        </section>
+
+        <section class="sections" id="how">
+            <article class="card">
+                <h2>Как это работает для НКО</h2>
+                <p>
+                    Организация создаёт аккаунт, описывает свои проекты и мероприятия,
+                    настраивает роли координаторов и отслеживает вовлеченность волонтеров.
+                </p>
+            </article>
+            <article class="card">
+                <h2>Как это работает для волонтера</h2>
+                <p>
+                    Волонтер регистрируется, выбирает интересующие мероприятия,
+                    участвует и накапливает часы, которые конвертируются в рейтинг и сертификаты.
+                </p>
+            </article>
+            <article class="card">
+                <h2>Прозрачный учет и аналитика</h2>
+                <p>
+                    Система ведет учет часов, формирует сводки по мероприятиям и позволяет
+                    НКО быстро готовить отчеты для партнеров и грантодателей.
+                </p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="inner">
+            <div>
+                © <span id="year"></span> RukaPomoshchi. Все права защищены.
+            </div>
+            <div>
+                <a class="muted-link" href="#about">О платформе</a> ·
+                <a class="muted-link" href="#sections">Разделы</a> ·
+                <a class="muted-link" href="#how">Как это работает</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
+
+
