@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация волонтера – RukaPomoshchi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+            color: #e5e7eb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .shell {
+            width: 100%;
+            max-width: 480px;
+            padding: 1.5rem;
+        }
+        .card {
+            background: rgba(15, 23, 42, 0.98);
+            border-radius: 1.25rem;
+            padding: 1.6rem 1.7rem 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 1.2rem;
+        }
+        .logo-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 30% 20%, #bbf7d0 0, #22c55e 35%, #16a34a 55%, #14532d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #022c22;
+            font-size: 0.9rem;
+            font-weight: 800;
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.8),
+                0 12px 22px rgba(22, 163, 74, 0.45);
+        }
+        h1 {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        p.subtitle {
+            margin: 0.4rem 0 1.2rem;
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+        form {
+            display: grid;
+            gap: 0.9rem;
+        }
+        label {
+            font-size: 0.82rem;
+            color: #d1d5db;
+        }
+        .field {
+            margin-top: 0.15rem;
+        }
+        input,
+        select {
+            width: 100%;
+            padding: 0.6rem 0.7rem;
+            border-radius: 0.7rem;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            font-size: 0.9rem;
+        }
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.65);
+        }
+        .row-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.7rem;
+        }
+        @media (max-width: 480px) {
+            .row-2 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+        small {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 0.72rem;
+            color: #9ca3af;
+        }
+        button {
+            margin-top: 0.4rem;
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 0.9rem;
+            border: none;
+            background: linear-gradient(135deg, #22c55e, #16a34a, #4ade80);
+            color: #022c22;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow:
+                0 14px 28px rgba(22, 163, 74, 0.55),
+                0 0 0 1px rgba(21, 128, 61, 0.6);
+        }
+        button:hover {
+            filter: brightness(1.05);
+        }
+        .bottom {
+            margin-top: 0.9rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+        a {
+            color: #a7f3d0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-badge">R</div>
+                <div>
+                    <h1>Регистрация волонтера</h1>
+                    <p class="subtitle">Создайте профиль, чтобы участвовать в мероприятиях и копить часы.</p>
+                </div>
+            </div>
+            <form action="../register_volunteer.php" method="post">
+                <div class="row-2">
+                    <div>
+                        <label for="first_name">Имя</label>
+                        <div class="field">
+                            <input id="first_name" name="first_name" type="text" placeholder="Иван">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="last_name">Фамилия</label>
+                        <div class="field">
+                            <input id="last_name" name="last_name" type="text" placeholder="Иванов">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="email">Электронная почта</label>
+                    <div class="field">
+                        <input id="email" name="email" type="email" placeholder="you@example.org">
+                    </div>
+                </div>
+                <div class="row-2">
+                    <div>
+                        <label for="password">Пароль</label>
+                        <div class="field">
+                            <input id="password" name="password" type="password" placeholder="Придумайте пароль">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password2">Повторите пароль</label>
+                        <div class="field">
+                            <input id="password2" name="password2" type="password" placeholder="Повторите пароль">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="role">Роль в системе</label>
+                    <div class="field">
+                        <select id="role" name="role">
+                            <option value="volunteer">Волонтер</option>
+                            <option value="coordinator">Координатор НКО</option>
+                            <option value="admin">Администратор проекта</option>
+                        </select>
+                    </div>
+                    <small>Роли в дальнейшем могут управляться администратором платформы.</small>
+                </div>
+                <div>
+                    <label for="city">Город</label>
+                    <div class="field">
+                        <input id="city" name="city" type="text" placeholder="Например, Москва">
+                    </div>
+                </div>
+                <button type="button">Создать аккаунт</button>
+            </form>
+            <div class="bottom">
+                Уже есть аккаунт? <a href="auth-login.html">Войти</a> ·
+                <a href="index.html">← На главную</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
